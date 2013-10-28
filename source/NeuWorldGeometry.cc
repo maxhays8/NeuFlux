@@ -15,10 +15,10 @@
 
 
 NeuFlux::NeuWorldGeometry::NeuWorldGeometry() : G4VUserDetectorConstruction(), fDetector(NULL), 
-												fWorldX(1000.0),fWorldY(1000.0),fWorldZ(1000.0),
-												fRockX(1000.0),fRockY(900.0),fRockZ(1000.0),
-												fConcreteX(150.0),fConcreteY(150.0),fConcreteZ(150.0),
-												fDetectorX(100),fDetectorY(100.0),fDetectorZ(100.0)
+												fWorldX(1.*m),fWorldY(1.*m),fWorldZ(1.*m),
+												fRockX(1.*m),fRockY(0.9*m),fRockZ(1.*m),
+												fConcreteX(0.15*m),fConcreteY(0.15*m),fConcreteZ(0.15*m),
+												fDetectorX(0.1*m),fDetectorY(0.1*m),fDetectorZ(0.1*m)
 {
 	fMessenger = new NeuFlux::NeuGeometryMessenger(this);	
 }
@@ -60,8 +60,8 @@ G4VPhysicalVolume* NeuFlux::NeuWorldGeometry::ConstructWorld()
 	G4NistManager* man = G4NistManager::Instance();
 	fLogicWorld = new G4LogicalVolume(
 						new G4Box("World",
-	                    fWorldX*2.0,
-	                    fWorldY*2.0, fWorldZ*2.0),
+	                    fWorldX*0.5,
+	                    fWorldY*0.5, fWorldZ*0.5),
 	                man->FindOrBuildMaterial("G4_AIR"),
 	                "World");
 
@@ -77,8 +77,8 @@ G4VPhysicalVolume* NeuFlux::NeuWorldGeometry::ConstructRock()
 {
 	fLogicRock = new G4LogicalVolume(
 						new G4Box("Rock",
-	                    fRockX*2.0,
-	                    fRockY*2.0, fRockZ*2.0),
+	                    fRockX*0.5,
+	                    fRockY*0.5, fRockZ*0.5),
 	                new NeuRock(),
 	                "Rock");
 
@@ -96,8 +96,8 @@ G4VPhysicalVolume* NeuFlux::NeuWorldGeometry::ConstructConcrete()
 {
 	fLogicConcrete = new G4LogicalVolume(
 						new G4Box("Concrete",
-	                    fConcreteX*2.0,
-	                    fConcreteY*2.0, fConcreteZ*2.0),
+	                    fConcreteX*0.5,
+	                    fConcreteY*0.5, fConcreteZ*0.5),
 	                new NeuConcrete(),
 	                "Concrete");
 
@@ -117,8 +117,8 @@ G4VPhysicalVolume* NeuFlux::NeuWorldGeometry::ConstructDetector()
 
 	fLogicDetector = new G4LogicalVolume(
 						new G4Box("Detector",
-	                    fDetectorX*2.0,
-	                    fDetectorY*2.0, fDetectorZ*2.0),
+	                    fDetectorX*0.5,
+	                    fDetectorY*0.5, fDetectorZ*0.5),
 	                man->FindOrBuildMaterial("G4_POLYTRIFLUOROCHLOROETHYLENE"),
 	                "Detector");
 

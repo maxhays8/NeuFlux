@@ -47,7 +47,7 @@ void NeuFlux::NeuEventAction::BeginOfEventAction(const G4Event *event)
 void NeuFlux::NeuEventAction::EndOfEventAction(const G4Event * evt)
 {
 	G4cout<<std::endl;
-	G4cout<<"End of event"<<std::endl;
+	G4cout<<"End of event"<<evt->GetEventID()<<std::endl;
 	G4cout<<"---------------------------------------"<<std::endl;
 	
 	fEventID = evt->GetEventID();

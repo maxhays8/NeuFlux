@@ -52,6 +52,7 @@ namespace NeuFlux
       double fLT ;
       double fGT ;
       double fPT ;
+      double fE;
 
       double fVolume;
       double fNextVolume;

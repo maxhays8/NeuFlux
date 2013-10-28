@@ -34,9 +34,6 @@ NeuFlux::NeuGeometryMessenger::NeuGeometryMessenger(NeuFlux::NeuWorldGeometry* g
           fWorldX->SetUnitCategory("Length");
           fWorldY->SetUnitCategory("Length");
           fWorldZ->SetUnitCategory("Length");
-          fWorldX->SetUnitCategory("Length");
-          fWorldY->SetUnitCategory("Length");
-          fWorldZ->SetUnitCategory("Length");
           fWorldX->AvailableForStates(G4State_PreInit, G4State_Idle);
           fWorldY->AvailableForStates(G4State_PreInit, G4State_Idle);
           fWorldZ->AvailableForStates(G4State_PreInit, G4State_Idle);
@@ -55,9 +52,6 @@ NeuFlux::NeuGeometryMessenger::NeuGeometryMessenger(NeuFlux::NeuWorldGeometry* g
           fRockX->SetDefaultUnit("cm");
           fRockY->SetDefaultUnit("cm");
           fRockZ->SetDefaultUnit("cm");
-          fRockX->SetUnitCategory("Length");
-          fRockY->SetUnitCategory("Length");
-          fRockZ->SetUnitCategory("Length");
           fRockX->SetUnitCategory("Length");
           fRockY->SetUnitCategory("Length");
           fRockZ->SetUnitCategory("Length");
@@ -82,9 +76,6 @@ NeuFlux::NeuGeometryMessenger::NeuGeometryMessenger(NeuFlux::NeuWorldGeometry* g
           fConcreteX->SetUnitCategory("Length");
           fConcreteY->SetUnitCategory("Length");
           fConcreteZ->SetUnitCategory("Length");
-          fConcreteX->SetUnitCategory("Length");
-          fConcreteY->SetUnitCategory("Length");
-          fConcreteZ->SetUnitCategory("Length");
           fConcreteX->AvailableForStates(G4State_PreInit, G4State_Idle);
           fConcreteY->AvailableForStates(G4State_PreInit, G4State_Idle);
           fConcreteZ->AvailableForStates(G4State_PreInit, G4State_Idle);
@@ -103,9 +94,6 @@ NeuFlux::NeuGeometryMessenger::NeuGeometryMessenger(NeuFlux::NeuWorldGeometry* g
           fDetectorX->SetDefaultUnit("cm");
           fDetectorY->SetDefaultUnit("cm");
           fDetectorZ->SetDefaultUnit("cm");
-          fDetectorX->SetUnitCategory("Length");
-          fDetectorY->SetUnitCategory("Length");
-          fDetectorZ->SetUnitCategory("Length");
           fDetectorX->SetUnitCategory("Length");
           fDetectorY->SetUnitCategory("Length");
           fDetectorZ->SetUnitCategory("Length");

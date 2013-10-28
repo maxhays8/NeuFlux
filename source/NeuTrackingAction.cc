@@ -4,6 +4,8 @@
 #include "G4TrackingManager.hh"
 #include "G4Track.hh"
 #include "G4ParticleDefinition.hh"
+#include "G4SystemOfUnits.hh"
+#include "G4UnitsTable.hh"
 
 #include <string>
 
@@ -31,7 +33,7 @@ void NeuFlux::NeuTrackingAction::OnNewFileCreate()
 	NeuFlux::NeuRootOutput::GetInstance()->AddTree("NeuTrackingAction");
     NeuFlux::NeuRootOutput::GetInstance()->AddBranch<double>("NeuTrackingAction"," TrackID", &fTrackID );              
     NeuFlux::NeuRootOutput::GetInstance()->AddBranch<double>("NeuTrackingAction"," ParentID", &fParentID);               
-    NeuFlux::NeuRootOutput::GetInstance()->AddBranch<double>("NeuTrackingAction"," X", &fX       );        
+    NeuFlux::NeuRootOutput::GetInstance()->AddBranch<double>("NeuTrackingAction"," X", &fX       );
     NeuFlux::NeuRootOutput::GetInstance()->AddBranch<double>("NeuTrackingAction"," Y", &fY       );        
     NeuFlux::NeuRootOutput::GetInstance()->AddBranch<double>("NeuTrackingAction"," Z", &fZ       );        
     NeuFlux::NeuRootOutput::GetInstance()->AddBranch<double>("NeuTrackingAction"," LT", &fLT      );         
@@ -48,6 +50,7 @@ void NeuFlux::NeuTrackingAction::UpdateBranches(const G4Track* theTrack)
 	fX = theTrack->GetPosition().x();
 	fY = theTrack->GetPosition().y();
 	fZ = theTrack->GetPosition().z();
+    fE = theTrack->GetKineticEnergy();
 	fLT = theTrack->GetLocalTime();
 	fGT = theTrack->GetGlobalTime();
 	fPT = theTrack->GetProperTime();
@@ -56,11 +59,18 @@ void NeuFlux::NeuTrackingAction::UpdateBranches(const G4Track* theTrack)
 	//#ifdef NeuDebug_tracks	
 	const G4ParticleDefinition* def = theTrack->GetParticleDefinition();
 
-	G4cout<<def->GetParticleType()<<"\t"<<def->GetParticleSubType()<<"\t"<<def->GetPDGEncoding()<<std::endl;
+	//G4cout<<def->GetParticleType()<<"\t"<<def->GetParticleSubType()<<"\t"<<def->GetPDGEncoding()<<std::endl;
+    //G4cout<<"This is the Track ID: "<<fTrackID<<G4endl;
+    
 	if(def->GetPDGEncoding() == 2112)
 	{
 		G4cout<<"Beginning Neutron Track, slowing down"<<std::endl;
 	}
+    
+    if(def->GetParticleType() == "meson" && fE < 10.*MeV){
+        const_cast<G4Track*>(theTrack)->SetTrackStatus( fKillTrackAndSecondaries);
+        G4cout<<"The meson energy is " << G4BestUnit(fE, "Energy") << "and the track has been killed." << G4endl;
+    }
 
 	//if(def->GetPDGEncoding() != 2112 && def->GetPDGEncoding() != 13)
 	//	theTrack->SetGoodForTrackingFlag(false);
