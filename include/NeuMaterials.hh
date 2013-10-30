@@ -4,8 +4,7 @@
 #include "G4Material.hh"
 #include "G4Isotope.hh"
 #include "G4Element.hh"
-
-#include "NeuElement.hh"
+//#include "G4NistManager.hh"
 
 /*!
 	\file NeuMaterials.hh
@@ -44,20 +43,21 @@ namespace NeuFlux
 			*/
 			NeuConcrete() : G4Material( "concrete Approximation", 2.4*g/cm3, 2)
 			{
-				natO = new NeuOxygen();
-				natSi = new NeuSilicon();
+                G4NistManager* manager = G4NistManager::Instance();
+                
+				natO = manager->FindOrBuildElement("O");
+				natSi = manager->FindOrBuildElement("Si");
+                
 		   		this->AddElement( (G4Element*) natSi, 1 );
    				this->AddElement( (G4Element*) natO, 2 );
 			}
 			virtual ~NeuConcrete()
 			{
-				delete natO;
-				delete natSi;
 			}
 
 		private:
-			NeuOxygen* natO;
-			NeuSilicon* natSi;
+			G4Element* natO;
+			G4Element* natSi;
 	};
 
 	/*!
@@ -108,18 +108,21 @@ namespace NeuFlux
 			*/
 			NeuRock() : G4Material( "rock Approximation", 3200*g/cm3, 10, kStateSolid)
 			{
-				natO = new NeuOxygen;
-				natSi = new NeuSilicon;
-				natAl = new NeuAluminum;
-				natFe = new NeuIron;
+                
+                G4NistManager* manager = G4NistManager::Instance();
+                
+				natO = manager->FindOrBuildElement("O");
+				natSi = manager->FindOrBuildElement("Si");
+				natAl = manager->FindOrBuildElement("Al");
+				natFe = manager->FindOrBuildElement("Fe");
 
-				natCa = new NeuCalcium;
-				natNa = new NeuSodium;
-				natK = new NeuPotassium;
-				natMg = new NeuMagnesium;
+				natCa = manager->FindOrBuildElement("Ca");
+				natNa = manager->FindOrBuildElement("Na");
+				natK = manager->FindOrBuildElement("K");
+				natMg = manager->FindOrBuildElement("Mg");
 				
-				natH = new NeuHydrogen;
-				natC = new NeuCarbon;
+				natH = manager->FindOrBuildElement("H");
+				natC = manager->FindOrBuildElement("C");
 
 				this->AddElement( (G4Element*) natO,0.331);
 				this->AddElement( (G4Element*) natSi,0.277);
@@ -134,29 +137,19 @@ namespace NeuFlux
 			}
 			virtual ~NeuRock()
 			{
-				delete natO;
-				delete natSi;
-				delete natAl;
-				delete natFe;
-				delete natCa;
-				delete natNa;
-				delete natK;
-				delete natMg;
-				delete natH;
-				delete natC;
 			}
 
 		private:
-			NeuHydrogen* natH;
-			NeuCarbon* natC;
-			NeuOxygen* natO;
-			NeuSilicon* natSi;
-			NeuAluminum* natAl;
-			NeuIron* natFe;
-			NeuCalcium* natCa;
-			NeuSodium* natNa;
-			NeuPotassium* natK;
-			NeuMagnesium* natMg;
+			G4Element* natH;
+			G4Element* natC;
+			G4Element* natO;
+			G4Element* natSi;
+			G4Element* natAl;
+			G4Element* natFe;
+			G4Element* natCa;
+			G4Element* natNa;
+			G4Element* natK;
+			G4Element* natMg;
 	};
 
 	class NeuHydroCarbon : public G4Material
@@ -168,24 +161,21 @@ namespace NeuFlux
 			*/
 			NeuHydroCarbon() : G4Material( "hydrocarbon Approximation", 3200*g/cm3, 2, kStateSolid)
 			{
-				natC = new NeuCarbon();
-				natH = new NeuHydrogen();
+                G4NistManager* manager = G4NistManager::Instance();
+                
+				natC = manager->FindOrBuildElement("C");
+				natH = manager->FindOrBuildElement("H");
 
 		   		this->AddElement( (G4Element*)natC, 2 );
    				this->AddElement( (G4Element*)natH, 4 );
 			}
 			virtual ~NeuHydroCarbon()
 			{
-
-				delete natC;
-
-				delete natH;
 			}
 
 		private:
-			NeuCarbon* natC;
-
-			NeuHydrogen* natH;
+			G4Element* natC;
+			G4Element* natH;
 	};
 }
 
